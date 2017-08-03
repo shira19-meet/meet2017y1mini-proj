@@ -3,14 +3,16 @@ import random
 
 turtle.tracer(1,0)
 
-SIZE_X=800
-SIZE_Y=500
+SIZE_X=1100
+SIZE_Y=800
 turtle.setup(SIZE_X,SIZE_Y)
+turtle.bgcolor("green")
 
 turtle.penup()
 
 SQUARE_SIZE=20
 START_LENGTH=14
+score = 0
 
 pos_list=[]
 stamp_list=[]
@@ -19,6 +21,7 @@ food_stamp=[]
 
 snake=turtle.clone()
 snake.shape("square")
+snake.color("red")
 
 turtle.hideturtle()
 
@@ -95,8 +98,21 @@ def make_food():
     new_food=food.stamp()
     food_stamp.append(new_food)
 
-
-
+def draw_rectangle(x,y,w,h):
+    draw = turtle.clone()
+    draw.hideturtle()
+    draw.begin_fill()
+    draw.penup()
+    draw.goto(x,y)
+    draw.pendown()
+    draw.goto(x+w,y)
+    draw.goto(x+w,y+h)
+    draw.goto(x,y+h)
+    draw.goto(x,y)
+    draw.fillcolor("white")
+    draw.end_fill()
+    
+    
 def move_snake():
     my_pos=snake.pos()
     x_pos=my_pos[0]
@@ -123,17 +139,31 @@ def move_snake():
     #special place-rememberit for part 5
     global food_stamp,food_pos
     if snake.pos() in food_pos:
+        global score
         food_ind=food_pos.index(snake.pos())
         food.clearstamp(food_stamp[food_ind])
         food_stamp.pop(food_ind)
         food_pos.pop(food_ind)
+        score+=1
+        scorePen = turtle.clone()
+        scorePen.color("green")
+        scorePen.shape("square")
+        scorePen.hideturtle()
+        scorePen.penup()
+        scorePen.goto(230, 192)
+        scorePen.stamp()
+        scorePen.goto(125,175)
+        scorePen.color("black")
+        scorePen.write("Score: " + str(score), font = ("Ariel", 20, "normal"))
         print("you have eaten the food")
+        scorePen.color("white")
+        scorePen.circle(30)
         make_food()
         #this if statment may be useful for part 8
-    
-    old_stamp=stamp_list.pop(0)
-    snake.clearstamp(old_stamp)
-    pos_list.pop(0)
+    else:
+        old_stamp=stamp_list.pop(0)
+        snake.clearstamp(old_stamp)
+        pos_list.pop(0)
 
     new_pos=snake.pos()
     new_x_pos=my_pos[0]
@@ -162,7 +192,8 @@ move_snake()
 
 turtle.register_shape("trash.gif")
 food=turtle.clone()
-food.shape("trash.gif")
+food.shape("turtle")
+food.color("blue")
 food_pos=[(100,100),(-100,100),(-100,-100),(100,-100)]
 food_stamp=[]
 
@@ -174,4 +205,3 @@ food.hideturtle()
 
 
 
-        
