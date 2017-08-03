@@ -3,10 +3,10 @@ import random
 
 turtle.tracer(1,0)
 
-SIZE_X=1100
-SIZE_Y=800
+SIZE_X=1200
+SIZE_Y=900
 turtle.setup(SIZE_X,SIZE_Y)
-turtle.bgcolor("green")
+turtle.bgcolor("pink")
 
 turtle.penup()
 
@@ -21,7 +21,7 @@ food_stamp=[]
 
 snake=turtle.clone()
 snake.shape("square")
-snake.color("red")
+snake.color("light blue")
 
 turtle.hideturtle()
 
@@ -48,10 +48,10 @@ DOWN=2
 RIGHT=3
 
 direction=UP
-UP_EDGE=250
-DOWN_EDGE=-250
-RIGHT_EDGE=400
-LEFT_EDGE=-400
+UP_EDGE=400
+DOWN_EDGE=-400
+RIGHT_EDGE=550
+LEFT_EDGE=-550
 def up():
     global direction
     direction=UP
@@ -146,11 +146,13 @@ def move_snake():
         food_pos.pop(food_ind)
         score+=1
         scorePen = turtle.clone()
-        scorePen.color("green")
+        scorePen.color("pink")
         scorePen.shape("square")
         scorePen.hideturtle()
         scorePen.penup()
         scorePen.goto(230, 192)
+        scorePen.stamp()
+        scorePen.goto(230 + SQUARE_SIZE, 192)
         scorePen.stamp()
         scorePen.goto(125,175)
         scorePen.color("black")
@@ -164,6 +166,62 @@ def move_snake():
         old_stamp=stamp_list.pop(0)
         snake.clearstamp(old_stamp)
         pos_list.pop(0)
+    if score>10:
+        turtle.bgcolor("blue")
+        scorePen = turtle.clone()
+        scorePen.color("blue")
+        scorePen.shape("square")
+        scorePen.hideturtle()
+        scorePen.penup()
+        scorePen.goto(230, 192)
+        scorePen.stamp()
+        scorePen.goto(230 + SQUARE_SIZE, 192)
+        scorePen.stamp()
+        scorePen.goto(125,175)
+        scorePen.color("black")
+        scorePen.write("Score: " + str(score), font = ("Ariel", 20, "normal"))
+        
+
+        
+
+    if score>20:
+        turtle.bgcolor("green")
+        scorePen = turtle.clone()
+        scorePen.color("green")
+        scorePen.shape("square")
+        scorePen.hideturtle()
+        scorePen.penup()
+        scorePen.goto(230, 192)
+        scorePen.stamp()
+        scorePen.goto(230 + SQUARE_SIZE, 192)
+        scorePen.stamp()
+        scorePen.goto(125,175)
+        scorePen.color("black")
+        scorePen.write("Score: " + str(score), font = ("Ariel", 20, "normal"))
+      
+       
+
+     
+    if score>30:
+        turtle.bgcolor("magenta")
+        scorePen = turtle.clone()
+        scorePen.color("magenta")
+        scorePen.shape("square")
+        scorePen.hideturtle()
+        scorePen.penup()
+        scorePen.goto(230, 192)
+        scorePen.stamp()
+        scorePen.goto(230 + SQUARE_SIZE, 192)
+        scorePen.stamp()
+        scorePen.goto(125,175)
+        scorePen.color("black")
+        scorePen.write("Score: " + str(score), font = ("Ariel", 20, "normal"))
+        
+
+
+      
+        
+        
 
     new_pos=snake.pos()
     new_x_pos=my_pos[0]
@@ -190,10 +248,10 @@ def move_snake():
 
 move_snake()
 
-turtle.register_shape("trash.gif")
+
 food=turtle.clone()
 food.shape("turtle")
-food.color("blue")
+food.color("yellow")
 food_pos=[(100,100),(-100,100),(-100,-100),(100,-100)]
 food_stamp=[]
 
